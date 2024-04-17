@@ -5,25 +5,21 @@ import java.math.BigDecimal;
 public class Main {
     public static void main(String[] args) {
         Supermarket supermarket = new Supermarket();
+        //假定apple10，strawberries5 mango3
 
-        // 创建苹果、草莓和芒果的测试案例
-        int appleQuantity = 10; // 苹果数量
-        int strawberryQuantity = 5; // 草莓数量
-        int mangoQuantity = 3; // 芒果数量
+        // 测试顾客A：仅购买苹果和草莓 正确值130
+        assert supermarket.calculateTotalForCustomerA(10, 5).compareTo(new BigDecimal("10000")) == 0 : "顾客A的计算错误";
 
-        // 计算预期的总价
-        // 苹果: 10 * 8 = 80
-        // 草莓: 5 * 13 * 0.8 = 52
-        // 芒果: 3 * 20 = 60
-        // 总价应该是：80 + 52 + 60 = 192
-        BigDecimal expectedTotal = new BigDecimal("192");
+        // 测试顾客B：购买苹果、草莓和芒果 190
+        assert supermarket.calculateTotalForCustomerB(10, 5, 3).compareTo(new BigDecimal("190")) == 0 : "顾客B的计算错误";
 
-        // 计算实际总价
-        BigDecimal actualTotal = supermarket.calculateTotal(appleQuantity, strawberryQuantity, mangoQuantity);
+        // 测试顾客C：草莓打折 182
+        assert supermarket.calculateTotalForCustomerC(10, 5, 3).compareTo(new BigDecimal("182")) == 0 : "顾客C的计算错误";
 
-        // 断言测试，验证实际总价是否与预期总价一致
-        assert actualTotal.compareTo(expectedTotal) == 0 : "断言失败：计算的总价与预期不符";
+        // 测试顾客D：满减促销 257
+        assert supermarket.calculatePromotionalTotal(5, 5, 5).compareTo(new BigDecimal("257")) == 0 : "顾客D的计算错误";
 
-        System.out.println("断言成功，计算的总价与预期一致。");
+
+        System.out.println("计算的总价与预期一致。");
     }
 }

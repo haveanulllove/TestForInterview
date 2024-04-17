@@ -14,10 +14,9 @@ public class Strawberry extends Product{
      * @param quantity 购买的草莓数量
      * @return 打折后草莓的总花费
      */
-    @Override
-    public BigDecimal calculateCost(int quantity) {
-        BigDecimal discountedPrice = price.multiply(BigDecimal.valueOf(0.8)); // 计算打折后的价格
-        return discountedPrice.multiply(BigDecimal.valueOf(quantity)); // 计算总价
+    public BigDecimal calculateDiscountCost(int quantity) {
+        BigDecimal discountRate = BigDecimal.valueOf(0.8);
+        return price.multiply(discountRate).multiply(BigDecimal.valueOf(quantity));
     }
 
 }

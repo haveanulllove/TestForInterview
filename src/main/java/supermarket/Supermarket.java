@@ -8,17 +8,58 @@ public class Supermarket {
     private Mango mango = new Mango(); // 创建芒果对象
 
     /**
-     * 计算顾客购买苹果、草莓和芒果的总价
-     * @param apples 购买的苹果数量
-     * @param strawberries 购买的草莓数量
-     * @param mangos 购买的芒果数量
-     * @return 总价
+     * 计算用户A的购买总价
+     * @param apples
+     * @param strawberries
+     * @return
      */
-    public BigDecimal calculateTotal(int apples, int strawberries, int mangos) {
+    public BigDecimal calculateTotalForCustomerA(int apples, int strawberries) {
         BigDecimal total = BigDecimal.ZERO;
         total = total.add(apple.calculateCost(apples));
         total = total.add(strawberry.calculateCost(strawberries));
+        return total;
+    }
+
+    /**
+     * 计算用户b购买总价
+     * @param apples
+     * @param strawberries
+     * @param mangos
+     * @return
+     */
+    public BigDecimal calculateTotalForCustomerB(int apples, int strawberries, int mangos) {
+        BigDecimal total = calculateTotalForCustomerA(apples, strawberries);
         total = total.add(mango.calculateCost(mangos));
+        return total;
+    }
+
+    /**
+     * 顾客C 草莓打折
+     * @param apples
+     * @param strawberries
+     * @param mangos
+     * @return
+     */
+
+    public BigDecimal calculateTotalForCustomerC(int apples, int strawberries, int mangos) {
+        BigDecimal total = BigDecimal.ZERO;
+        total = total.add(apple.calculateCost(apples));
+        total = total.add(strawberry.calculateDiscountCost(strawberries)); // Apply discount for strawberries
+        total = total.add(mango.calculateCost(mangos));
+        return total;
+    }
+    /**
+     * 顾客D：满减促销
+     * @param apples
+     * @param strawberries
+     * @param mangos
+     * @return
+     */
+    public BigDecimal calculatePromotionalTotal(int apples, int strawberries, int mangos) {
+        BigDecimal total = calculateTotalForCustomerB(apples, strawberries, mangos);
+        if (total.compareTo(BigDecimal.valueOf(100)) >= 0) {
+            total = total.subtract(BigDecimal.valueOf(10));
+        }
         return total;
     }
 }
